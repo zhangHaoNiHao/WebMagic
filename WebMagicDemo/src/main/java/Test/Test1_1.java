@@ -44,6 +44,7 @@ public class Test1_1 implements PageProcessor {
         	page.putField("title1 爬取"+a, title);
             
         }else if(page.getUrl().regex(URL_LIST).match()){
+        	//JS获取的
         	page.addTargetRequests(
                     page.getHtml().xpath("/html/body/div/a/@href").all());
         }
@@ -58,19 +59,6 @@ public class Test1_1 implements PageProcessor {
         		list.add("http://you.ctrip.com/TravelSite/Home/IndexTravelListHtml?p="+i+"&Idea=0&Type=100&Plate=0");
         	}
         	page.addTargetRequests(list);
-        	
-        	
-        	
-        	/*//如果是js列表页面
-        	if(page.getUrl().regex(URL_LIST).match()){
-        		
-        	}else{//如果是普通列表页面
-        		page.addTargetRequests(
-                        page.getHtml().xpath("//*[@id='photo-fall']/div/div[2]/a[2]/@href").all());
-        	}
-        	*/
-        	
-        	
         }
     }
     

@@ -93,10 +93,7 @@ public class Test1_1 implements PageProcessor{
         		list.add("http://you.ctrip.com/TravelSite/Home/IndexTravelListHtml?p="+i+"&Idea=0&Type=100&Plate=0");
         	}
         	page.addTargetRequests(list);
-        	/*
-            page.addTargetRequests(
-                    page.getHtml().xpath("/html/body/div[3]/div[1]/div[3]/a[@class='page-btn-prev']/@href").all());
-            */
+        	
         }
     }
     

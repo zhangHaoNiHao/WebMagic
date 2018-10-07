@@ -1,5 +1,8 @@
 package Test;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
  */
 public class Test0_5 implements PageProcessor {
 	static int a = 0;
+	String path = "D:/data";
 	public static final String URL_POST = "http://www\\.mafengwo\\.cn/i/[0-9]{6,8}\\.html";
 	//public static final String URL_LIST = "https://www\\.cnblogs\\.com/justcooooode/\\d";
 	
@@ -38,7 +42,27 @@ public class Test0_5 implements PageProcessor {
             a++;
             page.putField("title 爬取了"+a,
                     page.getHtml().xpath("//*[@id='_j_cover_box']/div[3]/div[2]/div/h1/text()").toString());
-        
+            //将文章存到本地文件中
+            String filename = page.getHtml().xpath("//*[@id='_j_cover_box']/div[3]/div[2]/div/h1/text()").toString();
+            File f1 = new File(path+"/"+filename+".txt"); 
+    		if (!f1.exists()) {
+    			try {
+					f1.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+    		FileWriter writer = null;
+			try {
+				writer = new FileWriter(f1,true);
+				System.out.println("文本 "+page.getHtml().xpath("//*[@class='view clearfix']/tidyText()").toString());
+				writer.append(page.getHtml().xpath("//*[@class='view clearfix']/tidyText()").toString());
+			    writer.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+            
         	} else {
         	System.out.println("列表页开始");
         	

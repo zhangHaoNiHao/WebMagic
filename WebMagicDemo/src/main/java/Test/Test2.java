@@ -1,5 +1,9 @@
 package Test;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,7 @@ import us.codecraft.webmagic.selector.JsonPathSelector;
  */
 public class Test2 implements PageProcessor {
 	 static int a = 0;
+	 
 	public static final String URL_POST = "https://you\\.autohome\\.com\\.cn/details/[0-9]{6,10}";
 	public static final String URL_LIST = "https://you\\.autohome\\.com\\.cn/summary/getsearchresultlist\\?ps=20&pg=\\d{1,4}&type=3&tagCode=&tagName=&sortType=3";
 	// https://you.autohome.com.cn/summary/getsearchresultlist?ps=20&pg=0&type=3&tagCode=&tagName=&sortType=3
@@ -37,14 +42,16 @@ public class Test2 implements PageProcessor {
     }
 
     public void process(Page page) {
-    						//列表页中的详情页的地址，过滤正则表达式
+    	//列表页中的详情页的地址，过滤正则表达式
         if (page.getUrl().regex(URL_POST).match()) {
             System.out.println("详情页 ");
             a++;
             //如果是详情页，将该链接加载到待下载的URL中
             page.putField("titles 爬取了 "+a,  // /html/body/div[7]/div[1]/div/div/div/div/span[2]
-                    page.getHtml().xpath("/html/body/div[7]/div[1]/div/div/div/div/span[2]").toString());
-        
+                    page.getHtml().xpath("/html/body/div[7]/div[1]/div/div/div/div/span[2]/text()").toString());
+          
+            
+            
         }
         else if(page.getUrl().regex(URL_LIST).match()){
         	//如果是翻页的链接，需要拼接地址

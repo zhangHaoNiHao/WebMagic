@@ -43,7 +43,7 @@ public class Test2_1 implements PageProcessor {
             a++;
             //如果是详情页，将该链接加载到待下载的URL中
             page.putField("titles 爬取了 "+a,  // /html/body/div[7]/div[1]/div/div/div/div/span[2]
-                    page.getHtml().xpath("/html/body/div[7]/div[1]/div/div/div/div/span[2]").toString());
+                    page.getHtml().xpath("/html/body/div[7]/div[1]/div/div/div/div/span[2]/text()").toString());
         
         }
         else {
